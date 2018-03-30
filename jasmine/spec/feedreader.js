@@ -39,34 +39,73 @@ $(function() {
          */
     });
 
-
     /* TODO: Write a new test suite named "The menu" */
-
+      describe('The menu', function() {
         /* TODO: Write a test that ensures the menu element is
          * hidden by default. You'll have to analyze the HTML and
          * the CSS to determine how we're performing the
          * hiding/showing of the menu element.
          */
+         let $body,
+             $icon;
 
+         beforeEach(function() {
+           $body = $('body');
+           $icon = $('i.icon-list');
+         });
+
+         it('is hidden', function() {
+           expect($body.attr('class')).toEqual('menu-hidden');
+         });
          /* TODO: Write a test that ensures the menu changes
           * visibility when the menu icon is clicked. This test
           * should have two expectations: does the menu display when
           * clicked and does it hide when clicked again.
           */
+          it('can toggle', function() {
+            $icon.trigger('click');
+            expect($body.attr('class')).not.toEqual('menu-hidden');
+            $icon.trigger('click');
+            expect($body.attr('class')).toEqual('menu-hidden');
+          });
+
+      });
 
     /* TODO: Write a new test suite named "Initial Entries" */
+      describe('Initial Entries', function(){
+     /* TODO: Write a test that ensures when the loadFeed
+      * function is called and completes its work, there is at least
+      * a single .entry element within the .feed container.
+      * Remember, loadFeed() is asynchronous so this test will require
+      * the use of Jasmine's beforeEach and asynchronous done() function.
+      */
+      let $entriesArr,
+          $feed;
 
-        /* TODO: Write a test that ensures when the loadFeed
-         * function is called and completes its work, there is at least
-         * a single .entry element within the .feed container.
-         * Remember, loadFeed() is asynchronous so this test will require
-         * the use of Jasmine's beforeEach and asynchronous done() function.
-         */
+          beforeEach(function(done) {
+            $entriesArr = $('.entry-link');
+            loadFeed(0);
+            done();
+          });
+          it('at least 1+ entry is called', function() {
+            expect($entriesArr.lenght).not.toBe(0);
+          });
+
+      });
 
     /* TODO: Write a new test suite named "New Feed Selection" */
+    describe('New Feed Selection', function() {
+      /* TODO: Write a test that ensures when a new feed is loaded
+       * by the loadFeed function that the content actually changes.
+       * Remember, loadFeed() is asynchronous.
+       */
+       beforeEach(function(done) {
+         loadFeed(0);
+         done();
+       });
 
-        /* TODO: Write a test that ensures when a new feed is loaded
-         * by the loadFeed function that the content actually changes.
-         * Remember, loadFeed() is asynchronous.
-         */
+       it('content changes', function() {
+       });
+    });
+
 }());
