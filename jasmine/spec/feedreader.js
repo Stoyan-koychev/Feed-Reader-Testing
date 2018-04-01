@@ -46,6 +46,11 @@ $(function() {
          * the CSS to determine how we're performing the
          * hiding/showing of the menu element.
          */
+
+         /*
+         * Saves the body and the $icon
+         * checks the body class on clicked
+         */
          let $body,
              $icon;
 
@@ -82,12 +87,14 @@ $(function() {
       let $entriesArr,
           $feed;
 
+          /*
+          * Check if the links are loaded
+          */
           beforeEach(function(done) {
-            $entriesArr = $('.entry-link');
-            loadFeed(0);
-            done();
+            loadFeed(0, done);
           });
           it('at least 1+ entry is called', function() {
+            $entriesArr = $('.entry-link');
             expect($entriesArr.lenght).not.toBe(0);
           });
 
@@ -99,13 +106,22 @@ $(function() {
        * by the loadFeed function that the content actually changes.
        * Remember, loadFeed() is asynchronous.
        */
-       beforeEach(function(done) {
-         loadFeed(0);
-         done();
-       });
+       let $first,
+           $second;
+           /*
+           * Saves fisrt and and second feed and copares them
+           */
 
-       it('content changes', function() {
-       });
-    });
+          beforeEach(function(done) {
+            loadFeed(0, function() {
+              $first = $('.feed')[0].innerHTML;
+              loadFeed(1, done);
+            });
+          });
+          it('content changes', function() {
+            $second = $('.feed')[0].innerHTML;
+            expect($second).not.toEqual($first);
+          });
+        });
 
 }());
