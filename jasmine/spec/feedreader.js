@@ -31,12 +31,29 @@ $(function() {
          * in the allFeeds object and ensures it has a URL defined
          * and that the URL is not empty.
          */
-
+         it('URL\'s exists', function() {
+           let counter = 0;
+           for (var i = 0; i < allFeeds.length; i++) {
+             if (allFeeds[i].hasOwnProperty('url')) {
+               counter++;
+             }
+           }
+           expect(counter).toBe(allFeeds.length);
+         });
 
         /* TODO: Write a test that loops through each feed
          * in the allFeeds object and ensures it has a name defined
          * and that the name is not empty.
          */
+         it('Names are exists', function() {
+           let count = 0;
+           for (var i = 0; i < allFeeds.length; i++) {
+             if (allFeeds[i].hasOwnProperty('name')) {
+               count++
+             }
+           }
+           expect(count).toBe(allFeeds.length);
+         });
     });
 
     /* TODO: Write a new test suite named "The menu" */
@@ -60,7 +77,7 @@ $(function() {
          });
 
          it('is hidden', function() {
-           expect($body.attr('class')).toEqual('menu-hidden');
+           expect($body.hasClass('menu-hidden'));
          });
          /* TODO: Write a test that ensures the menu changes
           * visibility when the menu icon is clicked. This test
@@ -69,9 +86,9 @@ $(function() {
           */
           it('can toggle', function() {
             $icon.trigger('click');
-            expect($body.attr('class')).not.toEqual('menu-hidden');
+            expect(!($body.hasClass('menu-hidden')));
             $icon.trigger('click');
-            expect($body.attr('class')).toEqual('menu-hidden');
+            expect($body.hasClass('menu-hidden'));
           });
 
       });
@@ -84,7 +101,7 @@ $(function() {
       * Remember, loadFeed() is asynchronous so this test will require
       * the use of Jasmine's beforeEach and asynchronous done() function.
       */
-      let $entriesArr,
+      let $entry,
           $feed;
 
           /*
@@ -94,8 +111,8 @@ $(function() {
             loadFeed(0, done);
           });
           it('at least 1+ entry is called', function() {
-            $entriesArr = $('.entry-link');
-            expect($entriesArr.lenght).not.toBe(0);
+            $entry = $('.entry');
+            expect($entry.lenght).not.toBe(0);
           });
 
       });
