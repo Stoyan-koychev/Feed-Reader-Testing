@@ -31,6 +31,11 @@ $(function() {
          * in the allFeeds object and ensures it has a URL defined
          * and that the URL is not empty.
          */
+         /*
+         * create an counter
+         * loop through the object and if url property exists
+         * the counter is increased
+         */
          it('URL\'s exists', function() {
            let counter = 0;
            for (var i = 0; i < allFeeds.length; i++) {
@@ -101,17 +106,16 @@ $(function() {
       * Remember, loadFeed() is asynchronous so this test will require
       * the use of Jasmine's beforeEach and asynchronous done() function.
       */
-      let $entry,
-          $feed;
+      let $entry;
 
           /*
           * Check if the links are loaded
           */
           beforeEach(function(done) {
             loadFeed(0, done);
+            $entry = $('.feed .entry');
           });
           it('at least 1+ entry is called', function() {
-            $entry = $('.entry');
             expect($entry.lenght).not.toBe(0);
           });
 
