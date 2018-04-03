@@ -82,7 +82,7 @@ $(function() {
          });
 
          it('is hidden', function() {
-           expect($body.hasClass('menu-hidden'));
+           expect($body.hasClass('menu-hidden')).toBe(true);
          });
          /* TODO: Write a test that ensures the menu changes
           * visibility when the menu icon is clicked. This test
@@ -91,9 +91,9 @@ $(function() {
           */
           it('can toggle', function() {
             $icon.trigger('click');
-            expect(!($body.hasClass('menu-hidden')));
+            expect($body.hasClass('menu-hidden')).toBe(false);
             $icon.trigger('click');
-            expect($body.hasClass('menu-hidden'));
+            expect($body.hasClass('menu-hidden')).toBe(true);
           });
 
       });
@@ -116,7 +116,7 @@ $(function() {
             $entry = $('.feed .entry');
           });
           it('at least 1+ entry is called', function() {
-            expect($entry.lenght).not.toBe(0);
+            expect($entry.context.links.length).toBeGreaterThan(0);
           });
 
       });
@@ -135,12 +135,12 @@ $(function() {
 
           beforeEach(function(done) {
             loadFeed(0, function() {
-              $first = $('.feed')[0].innerHTML;
+              $first = $('.feed').html();
               loadFeed(1, done);
             });
           });
           it('content changes', function() {
-            $second = $('.feed')[0].innerHTML;
+            $second = $('.feed').html();
             expect($second).not.toEqual($first);
           });
         });
